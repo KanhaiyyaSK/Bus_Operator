@@ -1,0 +1,60 @@
+.add-route-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.add-route-container h2 {
+  margin-bottom: 20px;
+}
+
+.add-route-form label {
+  display: block;
+  margin-bottom: 10px;
+}
+
+.add-route-form input[type="text"] {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.add-route-form button {
+  padding: 6px;
+  margin-left: 1px;
+  border: none;
+  background-color: #ff6347;
+  color: #fff;
+  cursor: pointer;
+}
+
+.add-route-form button.remove-button {
+  padding: 4px;
+  margin-left: 5px;
+  font-size: 8px;
+}
+
+.add-route-form ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.add-route-form li {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+.add-route-form .source-item {
+  color: #bec7ce;
+}
+
+@media screen and (min-width: 768px) {
+  .add-route-container {
+    max-width: 500px;
+  }
+}
