@@ -8,3 +8,23 @@
     text-align: center;
   }
   
+  .react-calendar {
+    max-width: 400px; /* Set maximum width for the calendar */
+    background-color: #ffffff; /* Set background color */
+    border: 2px solid #ddd; /* Set border */
+    border-radius: 8px; /* Set border radius */
+  }
+  
+  .react-calendar__tile--active {
+    background-color: #007bff; /* Set background color of active date */
+    color: #ffffff; /* Set text color of active date */
+  }
+  
+  .react-calendar__tile--hover {
+    background-color: #f0f0f0; /* Set background color when date is hovered */
+  }
+  
+  .react-calendar__tile--now {
+    background-color: #f0f0f0; /* Set background color of current date */
+  }
+  

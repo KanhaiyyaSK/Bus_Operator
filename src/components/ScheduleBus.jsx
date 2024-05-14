@@ -3,7 +3,9 @@ import axios from "axios";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import "./styles/ScheduleBus.css";
+import "./styles/Calender.css";
 import { toast, ToastContainer } from "react-toastify";
+
 const ScheduleBus = () => {
   const [buses, setBuses] = useState([]);
   const [routes, setRoutes] = useState([]);
@@ -43,7 +45,7 @@ const ScheduleBus = () => {
       );
       setBuses(response.data.buses);
     } catch (error) {
-      console.error("Error fetching buses:", error);
+      toast.error("Error fetching buses:", error);
     }
   };
 
@@ -59,7 +61,7 @@ const ScheduleBus = () => {
       );
       setRoutes(response.data.routes);
     } catch (error) {
-      console.error("Error fetching routes:", error);
+      toast.error("Error fetching routes:", error);
     }
   };
 
@@ -80,7 +82,7 @@ const ScheduleBus = () => {
       setDrivers(driverList);
       setConductors(conductorList);
     } catch (error) {
-      console.error("Error fetching employees:", error);
+      toast.error("Error fetching employees:", error);
     }
   };
 
@@ -110,6 +112,9 @@ const ScheduleBus = () => {
   const handleDateClick = (date) => {
     setSelectedDates((prevDates) => [...prevDates, date]);
   };
+  // const handleDateClick = (date) => {
+  //   setSelectedDates([date]); // Update selected dates with only the clicked date
+  // };
 
   const handleAddStop = () => {
     setRestStops((prevStops) => [
@@ -153,7 +158,7 @@ const ScheduleBus = () => {
         : null;
 
       if (!selectedDriverObj || !selectedConductorObj || !selectedRouteObj) {
-        console.error("Selected driver, conductor, or route not found.");
+        toast.error("Please select a valid driver, conductor, and route");
         return;
       }
       const response = await axios.post(
@@ -180,8 +185,8 @@ const ScheduleBus = () => {
       toast.success("Bus scheduled successfully");
       // Handle success response as needed
     } catch (error) {
-      console.error("Error scheduling bus:", error);
       toast.error(error.message ? error.message : "Error scheduling bus");
+      console.error("Error scheduling bus:", error);
       // Handle error as needed
     }
   };
