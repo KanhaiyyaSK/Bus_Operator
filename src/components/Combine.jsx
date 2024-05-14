@@ -29,7 +29,7 @@ const Combine = () => {
         {/* Apply menu class */}
         <h3 onClick={() => handlePageSelect(c1)}>Dashboard</h3>
         <h3 onClick={() => handlePageSelect(c2)}>Bus Registration</h3>
-        <h3 onClick={() => handlePageSelect(c3)}>Schedule Bus</h3>
+        <h3 onClick={() => handlePageSelect(c5)}>Schedule Bus</h3>
         <h3 onClick={() => handlePageSelect(c4)}>Add Routes</h3>
         
         <h3 onClick={() => handlePageSelect(c6)}>Employee Registration</h3>

@@ -8,6 +8,9 @@ import Paths from "./components/AddRoute";
 import ScheduleBus from "./components/ScheduleBus";
 import Employees from "./components/Employees";
 import Combine from "./components/Combine";
+import BusSeats from "./components/BusSeats";
+// import BusDesign from "./components/MySeatPickerComponent";
+import MySeatPickerComponent from "./components/MySeatPickerComponent";
 
 function App() {
   return (
@@ -20,6 +23,8 @@ function App() {
         <Route path="/paths" Component={Paths} />
         <Route path="/schedulebus" Component={ScheduleBus} />
         <Route path="/employees" Component={Employees} />
+        <Route path="/busSeat" Component={BusSeats} />
+        <Route path="/BusDesign" Component={MySeatPickerComponent} />
       </Routes>
     </Router>
   );

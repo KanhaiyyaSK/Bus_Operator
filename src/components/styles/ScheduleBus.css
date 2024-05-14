@@ -1,0 +1,10 @@
+.f1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.f2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}

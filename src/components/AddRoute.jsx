@@ -1,89 +1,92 @@
 import React, { useState } from "react";
+import axios from "axios";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const AddRoute = () => {
   const [routeData, setRouteData] = useState({
     routeName: "",
-    sourceList: [],
-    destinationList: [],
+    sourceList: {},
+    destinationList: {},
     agencyId: "",
   });
 
-  const [newSourceMain, setNewSourceMain] = useState("");
-  const [newSourceNearby, setNewSourceNearby] = useState("");
-  const [newDestinationMain, setNewDestinationMain] = useState("");
-  const [newDestinationNearby, setNewDestinationNearby] = useState("");
+  const [newSource, setNewSource] = useState("");
+  const [newSourceTime, setNewSourceTime] = useState("");
+  const [newDestination, setNewDestination] = useState("");
+  const [newDestinationTime, setNewDestinationTime] = useState("");
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setRouteData({ ...routeData, [name]: value });
   };
 
-  const handleSourceMainChange = (e) => {
-    setNewSourceMain(e.target.value);
-  };
-
-  const handleSourceNearbyChange = (e) => {
-    setNewSourceNearby(e.target.value);
-  };
-
-  const handleDestinationMainChange = (e) => {
-    setNewDestinationMain(e.target.value);
-  };
-
-  const handleDestinationNearbyChange = (e) => {
-    setNewDestinationNearby(e.target.value);
-  };
-
   const addSource = () => {
-    if (newSourceMain.trim() !== "" && newSourceNearby.trim() !== "") {
-      const newSource = `${newSourceMain} - ${newSourceNearby}`;
+    if (newSource.trim() !== "" && newSourceTime.trim() !== "") {
       setRouteData({
         ...routeData,
-        sourceList: [...routeData.sourceList, newSource],
+        sourceList: { ...routeData.sourceList, [newSource]: newSourceTime },
       });
-      setNewSourceMain("");
-      setNewSourceNearby("");
+      setNewSource("");
+      setNewSourceTime("");
     }
   };
 
   const addDestination = () => {
-    if (
-      newDestinationMain.trim() !== "" &&
-      newDestinationNearby.trim() !== ""
-    ) {
-      const newDestination = `${newDestinationMain} - ${newDestinationNearby}`;
+    if (newDestination.trim() !== "" && newDestinationTime.trim() !== "") {
       setRouteData({
         ...routeData,
-        destinationList: [...routeData.destinationList, newDestination],
+        destinationList: {
+          ...routeData.destinationList,
+          [newDestination]: newDestinationTime,
+        },
       });
-      setNewDestinationMain("");
-      setNewDestinationNearby("");
+      setNewDestination("");
+      setNewDestinationTime("");
     }
   };
 
-  const removeSource = (index) => {
-    const newSourceList = [...routeData.sourceList];
-    newSourceList.splice(index, 1);
+  const removeSource = (location) => {
+    const newSourceList = { ...routeData.sourceList };
+    delete newSourceList[location];
     setRouteData({ ...routeData, sourceList: newSourceList });
   };
 
-  const removeDestination = (index) => {
-    const newDestinationList = [...routeData.destinationList];
-    newDestinationList.splice(index, 1);
+  const removeDestination = (location) => {
+    const newDestinationList = { ...routeData.destinationList };
+    delete newDestinationList[location];
     setRouteData({ ...routeData, destinationList: newDestinationList });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
+    console.log("routeData", routeData);
     e.preventDefault();
-    // Here you can send the routeData to your backend endpoint using fetch or any other method
-    console.log(routeData);
-    // Reset the form after submission if needed
-    setRouteData({
-      routeName: "",
-      sourceList: [],
-      destinationList: [],
-      agencyId: "",
-    });
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/route/addRoute",
+        routeData,
+        {
+          headers: {
+            Authorization: `Bearer yourAccessToken`,
+          },
+        }
+      );
+      console.log("Response:", response.data);
+      toast.success("Route added successfully!");
+      // Reset the form after successful submission
+      setRouteData({
+        routeName: "",
+        sourceList: {},
+        destinationList: {},
+        agencyId: "",
+      });
+    } catch (error) {
+      console.error("Error:", error);
+      toast.error(
+         `${error.response.data.message}` ||
+          " Error adding route.Please try again"
+      );
+    }
   };
 
   return (
@@ -101,29 +104,29 @@ const AddRoute = () => {
         </label>
         <br />
         <label>
-          Source Main Location:
+          Source Location:
           <input
             type="text"
-            value={newSourceMain}
-            onChange={handleSourceMainChange}
+            value={newSource}
+            onChange={(e) => setNewSource(e.target.value)}
           />
         </label>
         <label>
-          Source Nearby Location:
+          Source Time:
           <input
             type="text"
-            value={newSourceNearby}
-            onChange={handleSourceNearbyChange}
+            value={newSourceTime}
+            onChange={(e) => setNewSourceTime(e.target.value)}
           />
         </label>
         <button type="button" onClick={addSource}>
           Add Source
         </button>
         <ul>
-          {routeData.sourceList.map((source, index) => (
-            <li key={index}>
-              {source}
-              <button type="button" onClick={() => removeSource(index)}>
+          {Object.entries(routeData.sourceList).map(([location, time]) => (
+            <li key={location}>
+              {location} - {time}
+              <button type="button" onClick={() => removeSource(location)}>
                 X
               </button>
             </li>
@@ -131,29 +134,29 @@ const AddRoute = () => {
         </ul>
         <br />
         <label>
-          Destination Main Location:
+          Destination Location:
           <input
             type="text"
-            value={newDestinationMain}
-            onChange={handleDestinationMainChange}
+            value={newDestination}
+            onChange={(e) => setNewDestination(e.target.value)}
           />
         </label>
         <label>
-          Destination Nearby Location:
+          Destination Time:
           <input
             type="text"
-            value={newDestinationNearby}
-            onChange={handleDestinationNearbyChange}
+            value={newDestinationTime}
+            onChange={(e) => setNewDestinationTime(e.target.value)}
           />
         </label>
         <button type="button" onClick={addDestination}>
           Add Destination
         </button>
         <ul>
-          {routeData.destinationList.map((destination, index) => (
-            <li key={index}>
-              {destination}
-              <button type="button" onClick={() => removeDestination(index)}>
+          {Object.entries(routeData.destinationList).map(([location, time]) => (
+            <li key={location}>
+              {location} - {time}
+              <button type="button" onClick={() => removeDestination(location)}>
                 X
               </button>
             </li>
@@ -172,6 +175,7 @@ const AddRoute = () => {
         <br />
         <button type="submit">Add Route</button>
       </form>
+      <ToastContainer />
     </div>
   );
 };

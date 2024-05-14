@@ -1,0 +1,32 @@
+.seat-picker-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h2 {
+  text-align: center;
+}
+
+.seat-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.seat-table td {
+  padding: 15px;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.cell-input {
+  width: 100%;
+  height: 100%;
+  border: none;
+  font-size: 16px;
+}
+
+.occupied {
+  background-color: #28a745; /* Green color */
+  color: #fff; /* White text color */
+}

@@ -1,0 +1,10 @@
+.selected-day {
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+  }
+  

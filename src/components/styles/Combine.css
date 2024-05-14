@@ -3,24 +3,26 @@
 .container {
   display: flex;
   flex-direction: row;
-  height: 100vh; /* make the container fill the entire viewport height */
+  height: 100%; /* make the container fill the entire viewport height */
+  padding: 10px;
 }
 
 .menu {
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Align items with equal space between them */
+
+  align-items: center;
   padding: 10px;
   background-color: #2381de; /* light gray background for the menu */
-  width: 10%;
-  height: 700px;
+  /* width: 10%; */
+  height: auto;
 }
-
 
 .menu h3 {
   cursor: pointer;
-  color: #333;
-  margin-bottom: 10px;
+  color: #812323;
+  margin-bottom: 5px;
 }
 
 .menu h3:hover {
@@ -28,24 +30,28 @@
 }
 
 .page {
-  flex: 1; /* Take remaining space */
+  /* flex: 1; Take remaining space */
+  width: 500px;
+  height: 500px;
   padding: 20px;
-  background-color: #fff; /* white background for the page */
+  background-color: #e6dddd; /* white background for the page */
   border-left: 1px solid #ddd; /* add a border between menu and page */
   overflow-y: auto; /* Add vertical scrollbar if needed */
 }
 
 @media screen and (max-width: 768px) {
-  .container {
-    flex-direction: column; /* Change to column layout for smaller screens */
-  }
-
   .menu {
-    width: 100%; /* Take full width */
+    width: 10%; /* Take full width */
     align-items: center; /* Center items horizontally */
   }
 
   .menu h3 {
     margin-bottom: 20px;
+  }
+  h3 {
+    font-size: 15px;
+  }
+  * {
+    font-size: 10px;
   }
 }
